@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myapp-db
+  template:
+    metadata:
+      labels:
+        app: myapp-db
+    spec:
+      containers:
+      - name: myapp-db
+        image: palash150403/database
+        ports:
+        - containerPort: 5432
+        envFrom:
+        - secretRef:
+            name: myapp-db-secret
